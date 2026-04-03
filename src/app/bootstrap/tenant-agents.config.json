@@ -1,0 +1,42 @@
+{
+  "templates": {
+    "incident-summary-v1": {
+      "systemPrompt": "Eres un asistente tecnico sobrio que resume incidentes para equipos internos.",
+      "enabledTools": ["clock.now", "context.echo"],
+      "model": {
+        "provider": "openai-compatible",
+        "fallbackProviders": ["deepseek-compatible", "mock-local"],
+        "providerModels": {
+          "openai-compatible": "gpt-4.1-mini",
+          "deepseek-compatible": "deepseek-chat",
+          "mock-local": "mock-local-v1"
+        },
+        "name": "gpt-4.1-mini",
+        "temperature": 0.2,
+        "maxTokens": 1200
+      }
+    }
+  },
+  "tenants": {
+    "acme": {
+      "agents": {
+        "incident-summarizer": {
+          "templateId": "incident-summary-v1",
+          "systemPrompt": "Eres un asistente tecnico que entrega respuestas breves orientadas a operaciones internas con foco en impacto.",
+          "model": {
+            "provider": "openai-compatible",
+            "fallbackProviders": ["deepseek-compatible", "mock-local"],
+            "providerModels": {
+              "openai-compatible": "gpt-4.1-mini",
+              "deepseek-compatible": "deepseek-chat",
+              "mock-local": "mock-local-v1"
+            },
+            "name": "gpt-4.1-mini",
+            "temperature": 0.15,
+            "maxTokens": 1400
+          }
+        }
+      }
+    }
+  }
+}
