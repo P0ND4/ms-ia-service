@@ -1,0 +1,47 @@
+services:
+  ia-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ia-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGO_URI: mongodb://mongo:27017/ia-service
+      MONGO_DB_NAME: ia-service
+      IA_TENANT_CONFIG_PATH: /app/bootstrap/tenant-agents.config.json
+    volumes:
+      - ./src/app/bootstrap/tenant-agents.config.json:/app/bootstrap/tenant-agents.config.json:ro
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    networks:
+      - ia-network
+
+  mongo:
+    image: mongo:7
+    container_name: ia-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: ia-service
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand({ ping: 1 }).ok']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ia-network
+
+volumes:
+  mongo-data:
+
+networks:
+  ia-network:
+    driver: bridge

@@ -6,6 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "setup": "bash ./setup.sh",
+    "setup:dev": "bash ./setup-dev.sh",
+    "setup:prod": "bash ./setup-prod.sh",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
