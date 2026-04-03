@@ -10,6 +10,9 @@ Servicio de orquestacion de agentes IA para uso interno entre microservicios.
 - Trazabilidad de ejecuciones.
 - Metricas de uso y costo estimado por tenant.
 
+## Endpoints
+<img width="1444" height="272" alt="image" src="https://github.com/user-attachments/assets/2f068aba-7e32-4a3a-89a0-93e9565e346d" />
+
 ## Stack
 - NestJS
 - MongoDB
